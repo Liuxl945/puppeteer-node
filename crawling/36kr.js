@@ -38,6 +38,8 @@ import colors from "colors/safe"
         
         await sleep(1000)
 
+        let index = 0
+
         // 查询数据
         async function getList() {
             
@@ -56,7 +58,7 @@ import colors from "colors/safe"
 
             await sleep(1000)
             
-            for(let i = 0; i < urls.length; i++) {
+            for(let i = index; i < urls.length; i++) {
                 const page1 = await browser.newPage()
 
                 try{
@@ -72,8 +74,14 @@ import colors from "colors/safe"
                 page1.close()
                 await sleep(1000)
             }
+
+            index = urls.length
+
             
             let next = await page.evaluate(() => {
+
+                window.scrollTo(0,100000)
+
                 let items = document.querySelector(".kr-layout-content .kr-home-flow-see-more")
                 let itemsMore = document.querySelector(".kr-layout-content .kr-loading-more-button")
 
@@ -82,10 +90,23 @@ import colors from "colors/safe"
                 return items || itemsMore
             })
 
-            if(next) {
-                await page.click(".kr-layout-content .kr-loading-more-button")
-                await sleep(1000)
+            console.log(next)
 
+            if(next) {
+                
+                try{
+                    await page.click(".kr-layout-content .kr-loading-more-button")
+                    await sleep(1000)
+                }catch(err) {
+
+                    console.log(colors.red(err))
+
+                    browser.close()
+
+                }
+
+                getList()
+            }else {
                 getList()
             }
         }
