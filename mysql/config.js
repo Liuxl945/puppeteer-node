@@ -8,7 +8,7 @@
  */
 const config = {
     dialect: "mysql",
-    database: "ly_website",
+    database: "crawling",
     username: "root",
     password: "qqinsoft@youwu",
     host: "localhost",

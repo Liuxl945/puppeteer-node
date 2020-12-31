@@ -10,4 +10,5 @@ require("babel-polyfill")
 require('babel-register')({
     presets: ['env']
 })
-module.exports = require('./index.js')
+module.exports = require('./index-router.js')
+// module.exports = require('./index-crawl.js')

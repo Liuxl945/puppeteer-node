@@ -18,7 +18,7 @@ const TemFile = Model.TemFile
 const router = new Router()
 router.prefix("/upload")
 
-const DEFAULT_FILE = "ly_website"
+const DEFAULT_FILE = "36kr"
 
 router.post("/image", async ctx => {
     
